@@ -1,0 +1,10 @@
+{
+  "name": "coursepilot-pro",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node tests/test.js",
+    "check": "node --check src/popup.js && node --check src/content.js && node --check src/background.js && node --check src/storage.js && node --check src/progress.js && node --check src/playback.js && node --check src/gemini.js"
+  }
+}

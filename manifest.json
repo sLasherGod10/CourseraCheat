@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "CoursePilot Pro — Coursera Learning Assistant",
+  "version": "1.0.0",
+  "description": "A privacy-conscious Coursera learning assistant for playback controls, verified progress tracking, and optional Gemini study help.",
+  "action": {
+    "default_title": "CoursePilot Pro",
+    "default_popup": "src/popup.html"
+  },
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.coursera.org/*", "https://coursera.org/*"],
+      "js": ["src/content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": ["https://www.coursera.org/*", "https://coursera.org/*"],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

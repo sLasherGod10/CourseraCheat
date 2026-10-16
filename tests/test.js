@@ -1,0 +1,22 @@
+import assert from 'node:assert/strict';
+import { calculateProgress, normalizeStatus, mergeChecklist } from '../src/progress.js';
+import { clampSpeed } from '../src/playback.js';
+import { buildStudyPrompt, GeminiProvider } from '../src/gemini.js';
+
+assert.equal(normalizeStatus('Completed'), 'completed');
+assert.equal(normalizeStatus('In progress'), 'in-progress');
+assert.equal(normalizeStatus('Not started'), 'pending');
+assert.equal(normalizeStatus('Something else'), 'unknown');
+assert.deepEqual(calculateProgress([{status:'completed'},{status:'pending'},{status:'unknown'}]), {total:2,completed:1,percentage:50,verified:true});
+assert.deepEqual(calculateProgress([{status:'unknown'}]), {total:0,completed:0,percentage:0,verified:false});
+assert.equal(mergeChecklist([{id:'a',status:'unknown'}], {a:true})[0].status, 'completed');
+assert.equal(clampSpeed(99), 4);
+assert.equal(clampSpeed(-2), 1);
+assert.equal(clampSpeed('bad'), 1);
+assert.match(buildStudyPrompt('hint', 'What is recursion?'), /Do not provide a direct answer/);
+const provider = new GeminiProvider({});
+await assert.rejects(() => provider.generate({prompt:'hi'}), /No Gemini provider endpoint/);
+const rateProvider = new GeminiProvider({endpoint:'http://mock'});
+global.fetch = async () => new Response(JSON.stringify({error:{message:'rate'}}), {status:429, headers:{'Content-Type':'application/json'}});
+await assert.rejects(() => rateProvider.generate({prompt:'hi'}), /rate-limited/);
+console.log('All automated tests passed.');

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CoursePilot Pro</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark">CP</div><div><strong>CoursePilot</strong><span>Pro learning assistant</span></div></div>
+      <button id="themeBtn" class="icon-btn" title="Toggle theme" aria-label="Toggle theme">◐</button>
+    </header>
+
+    <section id="courseBanner" class="course-banner">
+      <div><span class="eyebrow">CURRENT COURSE</span><h1 id="courseTitle">Detecting Coursera page…</h1><p id="courseUrl">Open a Coursera lesson to connect.</p></div>
+      <button id="refreshBtn" class="ghost-btn">Refresh</button>
+    </section>
+
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="dashboard" role="tab">Dashboard</button>
+      <button class="tab" data-tab="playback" role="tab">Playback</button>
+      <button class="tab" data-tab="progress" role="tab">Progress</button>
+      <button class="tab" data-tab="ai" role="tab">AI Tutor</button>
+    </nav>
+
+    <section class="panel active" data-panel="dashboard">
+      <div class="hero-grid">
+        <article class="card progress-card"><div class="card-head"><span>Verified progress</span><span id="progressStatus" class="pill neutral">Waiting</span></div><div class="progress-ring"><strong id="progressPct">0%</strong><span>completed</span></div><div class="meter"><i id="progressMeter"></i></div><small id="progressMeta">No verified course status yet.</small></article>
+        <article class="card stat-card"><span class="muted">Lessons</span><strong id="lessonCount">0</strong><span id="lessonDone" class="positive">0 completed</span></article>
+        <article class="card stat-card"><span class="muted">Activities</span><strong id="activityCount">0</strong><span id="activityTodo" class="warning">0 need attention</span></article>
+      </div>
+      <article class="card"><div class="card-head"><div><strong>Next up</strong><span class="muted block">Only verified or manually checked items appear here.</span></div><button id="scanBtn" class="primary-btn">Scan course</button></div><div id="nextList" class="list empty">Nothing discovered yet.</div></article>
+      <div id="notice" class="notice hidden"></div>
+    </section>
+
+    <section class="panel" data-panel="playback">
+      <article class="card"><div class="card-head"><div><strong>Playback controls</strong><span class="muted block">Applies to supported HTML5 video players.</span></div><span id="playerPill" class="pill neutral">Checking player</span></div>
+        <div class="speed-grid" id="speedGrid"></div>
+        <label class="switch-row"><span><strong>Auto speed</strong><small>Apply your preferred speed to new lesson videos.</small></span><input id="autoSpeed" type="checkbox"><span class="switch"></span></label>
+        <label class="switch-row"><span><strong>Auto-next</strong><small>Move only when an identifiable next-lesson control exists.</small></span><input id="autoNext" type="checkbox"><span class="switch"></span></label>
+        <div class="callout">CoursePilot never changes document visibility, bypasses access controls, or fabricates completion.</div>
+      </article>
+    </section>
+
+    <section class="panel" data-panel="progress">
+      <article class="card"><div class="card-head"><div><strong>Course checklist</strong><span class="muted block">Green checks are reserved for verified or manually confirmed items.</span></div><button id="progressRefresh" class="ghost-btn">Refresh</button></div><div id="itemList" class="list empty">Scan the current course to see items.</div></article>
+    </section>
+
+    <section class="panel" data-panel="ai">
+      <article class="card"><div class="card-head"><div><strong>Gemini study assistant</strong><span class="muted block">Explain, summarize, hint, or practice — not auto-submit.</span></div><span id="aiPill" class="pill neutral">Not configured</span></div>
+        <div class="segmented" id="aiModes"><button class="selected" data-mode="explain">Explain</button><button data-mode="summarize">Summarize</button><button data-mode="hint">Hint</button><button data-mode="practice">Practice</button></div>
+        <textarea id="aiInput" rows="6" placeholder="Paste notes or ask a study question…"></textarea>
+        <button id="askAi" class="primary-btn full">Ask Gemini</button>
+        <div id="aiOutput" class="ai-output">Configure a provider endpoint in Settings to enable the tutor.</div>
+        <button id="settingsBtn" class="text-btn">Open AI settings</button>
+      </article>
+    </section>
+
+    <footer><span>CoursePilot Pro · v1.0.0</span><span>Privacy-first · MV3</span></footer>
+  </main>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
